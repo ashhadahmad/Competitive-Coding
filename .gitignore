@@ -1,8 +1,0 @@
-# ignore everything
-*
-
-# but don't ignore files ending with slash = directories
-!*/
-
-# and don't ignore files ending with ".php"
-!*.cpp
