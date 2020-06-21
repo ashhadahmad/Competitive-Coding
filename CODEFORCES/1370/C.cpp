@@ -5,8 +5,8 @@ using namespace std;
 #define ll long long
 
 bool isPrime(int n){
-	for(int i=3; i*i <= n; i+2) {
-		if(n % i) return false;
+	for(ll i=2; i*i <= n; i++) {
+		if(n % i == 0) return false;
 	}
 	return true;
 }
@@ -24,28 +24,24 @@ void solve(){
 		return;
 	}
 
-	if(!(n & (n-1))) {
+	if((n & (n-1)) == 0) {
 		cout << "FastestFinger\n";
 		return;
 	}
 
 	int count2 = 0;
-	while(!(n&1)) {
-		n >>= 1;
+	while(n > 1 && n % 2 == 0){
 		count2++;
+		n/=2;
 	}
 
-	if(isPrime(n)){
-		if(count2 == 1){
-			cout << "FastestFinger\n";
-		}
-		else {
-			cout << "Ashishgup\n";
-		}
+	if(isPrime(n) && count2 == 1) {
+		cout << "FastestFinger\n";
+		return;		
 	}
-	else{
-		cout << "Ashishgup\n";
-	}
+
+	cout << "Ashishgup\n";
+	return;
 }
 
 int main(){
