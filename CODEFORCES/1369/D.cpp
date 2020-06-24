@@ -1,66 +1,28 @@
 #include<bits/stdc++.h>
 using namespace std;
-
+ 
 #define IOS ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
 #define ll long long
-
-const ll mod = (ll) 1000000007;
-
-struct quad{
-	ll c,o,l;
-	quad() {
-		c = o = l = 0;
-	}
-	quad(ll a,ll b, ll cl) {
-		c = a;
-		o = b;
-		l = cl;
-	}
-};
-
-quad f(ll n) {
-	if(n == 1) {
-		return quad(0,0,1);
-	}
-
-	quad smallAns = f(n-1);
-
-	quad ans;
-	ans.o = smallAns.l % mod;
-	ans.c = (smallAns.o + smallAns.c) % mod;
-	ans.l = (smallAns.l + (2 * smallAns.o)) % mod;
-	return ans;
-}
-
-void solve(){
-	ll n;
-	cin >> n;
-
-	quad ans = f(n);
-	ll temp = ans.c;
-	
-	vector<int> store;
-
-	int st = 1;
-	bool chance = 0;
-	ll f[2];
-	while(true) {
-		if(temp <= st) {
-			f[chance] += temp;
-		}
-		else {
-			f[chance] += st;
-			chance ^= 1;
-			
-		}
-	}
-
-}
-
+ 
+const ll mod = (ll) 1e9+7;
+const int mxN = 2e6 + 5;
+ 
 int main(){
 	IOS;
 	int t = 1; 
 	cin >> t;
-	while(t--) solve();
+	vector<ll> dp(mxN);
+	dp[0] = 0;
+	dp[1] = 0;
+	for(int i=2; i<mxN; i++){
+		dp[i] = (2 * dp[i-2] + dp[i-1]);
+		dp[i] += (i%3 == 0);
+		dp[i] %= mod;
+	}
+	while(t--) {
+		int n;
+		cin >> n;
+		cout << ((dp[n] * (ll)4) % mod) << "\n";
+	}
 	return 0;
 }
