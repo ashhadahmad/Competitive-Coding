@@ -5,16 +5,17 @@ using namespace std;
 #define ll long long
 
 void solve(){
-	ll num;
-	cin >> num;
-	string ans = "";
-	while(num > 0) {
-		num--;
-		ans += ('a' + (num % 26));
-		num /= 26;
+	int n;
+	cin >> n;
+	vector<int> a(n);
+	int X = 0;
+	for(int i=0; i<n; i++) {
+		cin >> a[i];
+		X ^= a[i];
 	}
-	reverse(ans.begin(), ans.end());
-	cout << ans;
+	for(int i=0; i<n; i++) {
+		cout << (X^a[i]) << " ";
+	}
 }
 
 int main(){
